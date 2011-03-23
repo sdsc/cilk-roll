@@ -1,0 +1,3 @@
+NAME    = cilk
+VERSION = 8053
+RELEASE = 1
