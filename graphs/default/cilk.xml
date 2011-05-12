@@ -18,7 +18,7 @@ All rights reserved. Rocks(r) v5.1 www.rocksclusters.org
 <edge from="base">
   <to>cilk-common</to>
 </edge>
-<order from="head">
+<order from="base">
   <tail>cilk-common</tail>
 </order>
 
