@@ -29,4 +29,15 @@ All rights reserved. Rocks(r) v5.1 www.rocksclusters.org
   <tail>cilk-modules-common</tail>
 </order>
 
+<edge from="base">
+  <to>cilk-roll-test</to>
+</edge>
+<order head="base">
+  <tail>cilk-roll-test</tail>
+</order>
+
+<order head="cilk-common">
+  <tail>cilk-modules-common</tail>
+</order>
+
 </graph>

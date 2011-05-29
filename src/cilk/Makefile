@@ -54,13 +54,6 @@
 #
 # @Copyright@
 
-ifndef ROLLCOMPILER
-  ROLLCOMPILER = gnu
-endif
-ifndef ROLLNETWORK
-  ROLLNETWORK = eth
-endif
-
 PKGROOT = /opt/cilk
 SOURCE = cilk
 REDHAT.ROOT = $(PWD)/../../
@@ -73,9 +66,9 @@ build:
 
 install::
 	( \
-	cd $(SOURCE); \
-	mkdir -p $(ROOT)/$(PKGROOT); \
-	cp -r * $(ROOT)/$(PKGROOT); \
+	  cd $(SOURCE); \
+	  mkdir -p $(ROOT)/$(PKGROOT); \
+	  cp -r * $(ROOT)/$(PKGROOT); \
 	)
 
 clean::

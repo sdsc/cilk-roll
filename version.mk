@@ -1,4 +1,4 @@
-ROLLNAME = cilk$(ROLLSUFFIX)
+ROLLNAME = cilk
 RELEASE  = 0
 COLOR    = orange
 

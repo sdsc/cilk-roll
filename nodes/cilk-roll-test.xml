@@ -1,0 +1,83 @@
+<?xml version="1.0" standalone="no"?>
+
+<kickstart>
+
+<description>
+CILK roll installation test.
+</description>
+
+<copyright>
+Copyright (c) 2000 - 2011 The Regents of the University of California.
+All rights reserved. Rocks(r) v5.1 www.rocksclusters.org
+</copyright>
+
+<changelog>
+</changelog>
+
+<post>
+
+/bin/mkdir -m 0755 /root/rolltests
+
+<file name="/root/rolltests/cilk.t" perms="0755">
+<![CDATA[#!/usr/bin/perl -w
+# cilk roll installation test.  Usage:
+# cilk.t [nodetype]
+#   where nodetype is one of "Compute", "Dbnode", "Frontend" or "Login"
+#   if not specified, the test assumes either Compute or Frontend
+
+use Test::More qw(no_plan);
+
+my $appliance = $#ARGV >= 0 ? $ARGV[0] :
+                -d '/export/rocks/install' ? 'Frontend' : 'Compute';
+my $installedOnAppliancesPattern = '.';
+my $cilkHome = '/opt/cilk';
+my $isInstalled = -d $cilkHome;
+my $output;
+
+# cilk-common.xml
+if($appliance =~ /$installedOnAppliancesPattern/) {
+  ok($isInstalled, 'cilk installed');
+} else {
+  ok(! $isInstalled, 'cilk not installed');
+}
+my $testHome = "$cilkHome/examples/qsort";
+SKIP: {
+
+  skip 'cilk not installed', 2 if ! $isInstalled;
+  skip 'cilk test not installed', 2 if ! -d $testHome;
+  `export PATH=$cilkHome/bin:\$PATH; cilk++ $testHome/qsort.cilk -O1 -g -lcilkutil -o qsort`;
+  ok(-x 'qsort', 'cilk compiler works');
+  $output = `./qsort 5000000`;
+  like($output, qr/Sort succeeded/, 'cilk-compiled program works');
+  `/bin/rm qsort`;
+
+}
+
+# cilk-modules-common
+SKIP: {
+
+  skip 'cilk not installed', 1 if ! $isInstalled;
+  my $modulesInstalled = -f '/etc/profile.d/modules.sh';
+  if($modulesInstalled) {
+    ok(! -f '/etc/profile.d/cilk.csh' &&
+       ! -f '/etc/profile.d/cilk.sh', 'cilk profile.d removed');
+    like($ENV{MODULEPATH}, qr#/opt/modulefiles/compilers#,
+         'MODULEPATH set for compilers');
+    ok(defined(glob('/opt/modulefiles/compilers/cilk/[0-9]*')),
+       'cilk module installed');
+    ok(defined(glob('/opt/modulefiles/compilers/cilk/.version.[0-9]*')),
+       'cilk version module installed');
+    ok(-l '/opt/modulefiles/compilers/cilk/.version',
+       'cilk version module link created');
+  } else {
+    ok(-f '/etc/profile.d/cilk.csh' && -f '/etc/profile.d/cilk.sh',
+       'cilk profile.d installed');
+  }
+
+}
+]]>
+</file>
+
+</post>
+
+</kickstart> 
