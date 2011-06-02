@@ -63,10 +63,10 @@ SKIP: {
        ! -f '/etc/profile.d/cilk.sh', 'cilk profile.d removed');
     like($ENV{MODULEPATH}, qr#/opt/modulefiles/compilers#,
          'MODULEPATH set for compilers');
-    ok(defined(glob('/opt/modulefiles/compilers/cilk/[0-9]*')),
-       'cilk module installed');
-    ok(defined(glob('/opt/modulefiles/compilers/cilk/.version.[0-9]*')),
-       'cilk version module installed');
+    `/bin/ls /opt/modulefiles/compilers/cilk/[0-9]* 2>&1`;
+    ok($? == 0, 'cilk module installed');
+    `/bin/ls /opt/modulefiles/compilers/cilk/.version.[0-9]* 2>&1`;
+    ok($? == 0, 'cilk version module installed');
     ok(-l '/opt/modulefiles/compilers/cilk/.version',
        'cilk version module link created');
   } else {
