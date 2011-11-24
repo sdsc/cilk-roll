@@ -65,11 +65,8 @@ build:
 	tar zxvf $(SOURCE).tar.gz
 
 install::
-	( \
-	  cd $(SOURCE); \
-	  mkdir -p $(ROOT)/$(PKGROOT); \
-	  cp -r * $(ROOT)/$(PKGROOT); \
-	)
+	mkdir -p -m 755 $(ROOT)/$(PKGROOT)
+	cp -r $(SOURCE)/* $(ROOT)/$(PKGROOT)
 
 clean::
 	rm -rf $(SOURCE)
