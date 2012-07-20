@@ -40,39 +40,24 @@ if($appliance =~ /$installedOnAppliancesPattern/) {
 } else {
   ok(! $isInstalled, 'cilk not installed');
 }
-my $testHome = "$cilkHome/examples/qsort";
 SKIP: {
 
-  skip 'cilk not installed', 2 if ! $isInstalled;
-  skip 'cilk test not installed', 2 if ! -d $testHome;
-  `export PATH=$cilkHome/bin:\$PATH; cilk++ $testHome/qsort.cilk -O1 -g -lcilkutil -o qsort`;
-  ok(-x 'qsort', 'cilk compiler works');
-  $output = `./qsort 5000000`;
-  like($output, qr/Sort succeeded/, 'cilk-compiled program works');
-  `/bin/rm qsort`;
+  skip 'cilk not installed', 5 if ! $isInstalled;
+  skip 'cilk examples not installed', 5 if ! -d "$cilkHome/examples";
+  `$cilkHome/bin/cilkc -I $cilkHome/examples $cilkHome/examples/cilksort.cilk $cilkHome/examples/getoptions.o -o cilksort`;
+  ok(-x 'cilksort', 'cilk compiler works');
+  $output = `./cilksort`;
+  like($output, qr/Running time\s*=\s*[0-9\.]+/, 'cilk-compiled program works');
 
-}
+  `/bin/rm cilksort`;
 
-# cilk-modules-common
-SKIP: {
-
-  skip 'cilk not installed', 1 if ! $isInstalled;
-  my $modulesInstalled = -f '/etc/profile.d/modules.sh';
-  if($modulesInstalled) {
-    ok(! -f '/etc/profile.d/cilk.csh' &&
-       ! -f '/etc/profile.d/cilk.sh', 'cilk profile.d removed');
-    like($ENV{MODULEPATH}, qr#/opt/modulefiles/compilers#,
-         'MODULEPATH set for compilers');
-    `/bin/ls /opt/modulefiles/compilers/cilk/[0-9]* 2>&1`;
-    ok($? == 0, 'cilk module installed');
-    `/bin/ls /opt/modulefiles/compilers/cilk/.version.[0-9]* 2>&1`;
-    ok($? == 0, 'cilk version module installed');
-    ok(-l '/opt/modulefiles/compilers/cilk/.version',
-       'cilk version module link created');
-  } else {
-    ok(-f '/etc/profile.d/cilk.csh' && -f '/etc/profile.d/cilk.sh',
-       'cilk profile.d installed');
-  }
+  skip 'modules not installed', 3 if ! -f '/etc/profile.d/modules.sh';
+  `/bin/ls /opt/modulefiles/compilers/cilk/[0-9]* 2>&1`;
+  ok($? == 0, 'cilk module installed');
+  `/bin/ls /opt/modulefiles/compilers/cilk/.version.[0-9]* 2>&1`;
+  ok($? == 0, 'cilk version module installed');
+  ok(-l '/opt/modulefiles/compilers/cilk/.version',
+     'cilk version module link created');
 
 }
 ]]>

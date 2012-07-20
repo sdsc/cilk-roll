@@ -16,16 +16,6 @@ All rights reserved. Rocks(r) v5.1 www.rocksclusters.org
 </changelog>
 
 <package>cilk</package>
-
-<post>
-<file name="/etc/profile.d/cilk.csh" perms="0644">
-setenv CILKHOME /opt/cilk
-set path = ( /opt/cilk/bin $path )
-</file>
-<file name="/etc/profile.d/cilk.sh" perms="0644">
-export CILKHOME=/opt/cilk
-export PATH=/opt/cilk/bin:$PATH
-</file>
-</post>
+<package>cilk-modules</package>
 
 </kickstart>
