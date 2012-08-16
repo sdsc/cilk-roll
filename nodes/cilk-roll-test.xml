@@ -43,13 +43,14 @@ if($appliance =~ /$installedOnAppliancesPattern/) {
 SKIP: {
 
   skip 'cilk not installed', 5 if ! $isInstalled;
-  skip 'cilk examples not installed', 5 if ! -d "$cilkHome/examples";
-  `$cilkHome/bin/cilkc -I $cilkHome/examples $cilkHome/examples/cilksort.cilk $cilkHome/examples/getoptions.o -o cilksort`;
-  ok(-x 'cilksort', 'cilk compiler works');
-  $output = `./cilksort`;
-  like($output, qr/Running time\s*=\s*[0-9\.]+/, 'cilk-compiled program works');
-
-  `/bin/rm cilksort`;
+  SKIP: {
+    skip 'cilk examples not installed', 2 if ! -d "$cilkHome/examples";
+    `$cilkHome/bin/cilkc -I $cilkHome/examples $cilkHome/examples/cilksort.cilk $cilkHome/examples/getoptions.o -o cilksort`;
+    ok(-x 'cilksort', 'cilk compiler works');
+    $output = `./cilksort`;
+    like($output, qr/Running time\s*=\s*[0-9\.]+/, 'cilk-compiled program works');
+    `/bin/rm cilksort`;
+  }
 
   skip 'modules not installed', 3 if ! -f '/etc/profile.d/modules.sh';
   `/bin/ls /opt/modulefiles/compilers/cilk/[0-9]* 2>&1`;
