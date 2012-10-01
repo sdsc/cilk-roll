@@ -17,5 +17,6 @@ All rights reserved. Rocks(r) v5.1 www.rocksclusters.org
 
 <package>cilk</package>
 <package>cilk-modules</package>
+<package>cilk-roll-test</package>
 
 </kickstart>
