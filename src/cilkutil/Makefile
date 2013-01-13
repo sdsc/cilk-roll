@@ -54,7 +54,7 @@
 #
 # @Copyright@
 
-PKGROOT = /opt/cilk
+PKGROOT = /opt/cilkutil
 SOURCE = cilkutil-$(VERSION)
 REDHAT.ROOT = $(PWD)/../../
 
@@ -66,19 +66,20 @@ build:
 	cd 3rdparty
 	tar zxvf ../pin*gz
 	mv * pintool
+	cd ../cilkutil
 	tar zxvf ../libzca*gz
 	cd zca/src
 	make OUT=linux64
 	cd ../../cilkprof
+	module load intel
 	make
 
 install::
 	mkdir -p -m 755 $(ROOT)/$(PKGROOT)
-	for F in bin examples include lib64; do \
-	  mkdir -p -m 755 $(ROOT)/$(PKGROOT)$${F}; \
-	  cp -r cilkutil/$${F}/* $(ROOT)/$(PKGROOT)/$${F}; \
+	for F in bin examples include lib64 cilkprof/linux64; do \
+	  cp -r cilkutil/$${F} $(ROOT)/$(PKGROOT)/; \
 	done
 	cp cilkprof $(ROOT)/$(PKGROOT)/bin/
 
 clean::
-	rm -rf $(SOURCE) 3rdparty zca cilkprof
+	rm -rf cilkutil 3rdparty zca
