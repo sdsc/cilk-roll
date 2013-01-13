@@ -55,7 +55,7 @@
 # @Copyright@
 
 PKGROOT = /opt/cilkutil
-SOURCE = cilkutil-$(VERSION)
+SOURCE = cilkutil-linux-$(VERSION)
 REDHAT.ROOT = $(PWD)/../../
 
 -include $(ROCKSROOT)/etc/Rules.mk
@@ -63,16 +63,18 @@ REDHAT.ROOT = $(PWD)/../../
 build:
 	tar zxvf $(SOURCE).tgz
 	mkdir 3rdparty
-	cd 3rdparty
-	tar zxvf ../pin*gz
-	mv * pintool
-	cd ../cilkutil
-	tar zxvf ../libzca*gz
-	cd zca/src
-	make OUT=linux64
-	cd ../../cilkprof
-	module load intel
-	make
+	( \
+	  cd 3rdparty; \
+	  tar zxvf ../pin*gz; \
+	  mv * pintool; \
+	  cd ../cilkutil; \
+	  tar zxvf ../libzca*gz; \
+	  cd zca/src; \
+	  make OUT=linux64; \
+	  cd ../../cilkprof; \
+	  module load intel; \
+	  make \
+	)
 
 install::
 	mkdir -p -m 755 $(ROOT)/$(PKGROOT)
