@@ -1,4 +1,5 @@
 #%Module1.0
 set packageHome /opt/cilk
 setenv CILKHOME $packageHome
-prepend-path PATH $packageHome/bin
+setenv CILKUTIL /opt/cilkutil
+prepend-path PATH $packageHome/bin /opt/cilkutil/bin
