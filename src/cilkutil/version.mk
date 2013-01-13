@@ -1,0 +1,3 @@
+NAME    = cilkutil
+VERSION = 12.2516
+RELEASE = 0

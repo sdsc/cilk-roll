@@ -1,0 +1,78 @@
+#!/usr/bin/python
+
+# cilkprof
+# --------
+#
+# A script for running the Cilk prof tool.
+#
+# Instructions for installing the Cilk prof tool may be found at
+# http://groups.csail.mit.edu/sct/wiki/index.php?title=Cilk_Plus_Installation_Guide.
+#
+# Copyright (c) 2012 Tao B. Schardl
+#
+# This software is licensed under the MIT License.  Information on
+# this license can be found here:
+# http://www.opensource.org/licenses/mit-license.php.
+#
+
+import os, sys, subprocess
+
+# Set the CILKUTIL environment variable to point to the cilkutil
+# directory containing the Cilk prof tool, or enter that path on the
+# following line.
+DEFAULT_CILKUTIL = "/opt/intel/cilkutil"
+
+cilkutil = os.getenv('CILKUTIL', DEFAULT_CILKUTIL)
+
+# Usage message
+def print_usage():
+    print "Usage: %s [-bb <bb output file>] [-cc <cc output file>] [--] <program> [<arguments>]" % sys.argv[0]
+    print "       %s -h" % sys.argv[0]
+    exit(1)
+    
+# Parse arguments
+if len(sys.argv) < 2:
+    print_usage()
+
+bb_outfile = ""
+cc_outfile = ""
+i = 1
+while i < len(sys.argv):
+    if sys.argv[i] == "-h":
+        print_usage()
+    if sys.argv[i] == "-bb":
+        bb_outfile = sys.argv[i+1]
+        i = i + 2
+    elif sys.argv[i] == "-cc":
+        cc_outfile = sys.argv[i+1]
+        i = i + 2
+    elif sys.argv[i] == "--":
+        i = i + 1
+        break
+    else:
+        break
+
+# Extract cilk program name and arguments
+program = sys.argv[i]
+progName = program.split("/")[-1]
+arguments  = sys.argv[i+1:]
+
+# Set up default values for the bb and cc output files
+if bb_outfile == "":
+    bb_outfile = progName + ".bb.csv"
+if cc_outfile == "":
+    cc_outfile = progName + ".cc.csv"
+
+# Setup LD_LIBRARY_PATH to run cilkprof
+os.environ['LD_LIBRARY_PATH'] = cilkutil + "/../3rdparty/pintool/intel64/lib-ext:" + os.environ['LD_LIBRARY_PATH']
+
+# Setup CILKPROF_BB_OUT and CILKPROF_CC_OUT environment variables
+# for this run of cilkprof
+if bb_outfile != "":
+    os.environ['CILKPROF_BB_OUT'] = bb_outfile
+if cc_outfile != "":
+    os.environ['CILKPROF_CC_OUT'] = cc_outfile
+
+# Run cilkprof on the program
+call = [cilkutil + "/../3rdparty/pintool/pin", "-t", cilkutil + "/cilkprof/linux64/cilkprof.so", "--"]
+subprocess.call(call + [program] + arguments)
