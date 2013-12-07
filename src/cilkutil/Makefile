@@ -76,7 +76,7 @@ build: $(SRC_DIRS)
 	  module load intel; \
 	  make \
 	)
-        @echo "::: Package $(NAME) build complete :::"
+	@echo "::: Package $(NAME) build complete :::"
 
 install::
 	mkdir -p -m 755 $(ROOT)/$(PKGROOT)
@@ -84,7 +84,7 @@ install::
 	  cp -r cilkutil/$${F} $(ROOT)/$(PKGROOT)/; \
 	done
 	cp cilkprof $(ROOT)/$(PKGROOT)/bin/
-        @echo "::: Package $(NAME) install complete :::"
+	@echo "::: Package $(NAME) install complete :::"
 
 clean::
 	rm -rf $(SRC_DIRS)
