@@ -67,18 +67,3 @@ ok 6 - R version module link created
 1..6
 ```
 
-
-
-
-
-
-
-
-  To install, execute
-these instructions on a Rocks development machine (e.g., a frontend), starting
-in this directory:
-
-% make
-
-In addition to the software itself, the roll installs cilk environment module
-files in /opt/modulefiles/compilers/cilk.
