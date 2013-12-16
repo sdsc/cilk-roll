@@ -23,14 +23,14 @@ None
 
 ## Building
 
-To build the R-roll, execute these instructions on a Rocks development machine (e.g., a frontend or development appliance):
+To build the cilk-roll, execute these instructions on a cilkocks development machine (e.g., a frontend or development appliance):
 
 ```shell
 % make default 2>&1 | tee build.log
 % grep "RPM build error" build.log
 ```
 
-If nothing is returned from the grep command then the roll should have been created as... `R-roll-*.iso`. If you built the roll on a Rocks frontend then proceed to the installation step. If you built the roll on a Rocks development appliance you need to copy the roll to your Rocks frontend before continuing with installation.
+If nothing is returned from the grep command then the roll should have been created as... `cilk-roll-*.iso`. If you built the roll on a Rocks frontend then proceed to the installation step. If you built the roll on a Rocks development appliance you need to copy the roll to your Rocks frontend before continuing with installation.
 
 
 ## Installation
@@ -45,25 +45,25 @@ To install, execute these instructions on a Rocks frontend:
 % rocks run roll cilk | bash
 ```
 
-In addition to the software itself, the roll installs R environment module
+In addition to the software itself, the roll installs cilk environment module
 files in:
 
 ```shell
-/opt/modulefiles/applications/R
+/opt/modulefiles/applications/cilk
 ```
 
 ## Testing
 
-The R-roll includes a test script which can be run to verify proper installation of the R-roll documentation, binaries and module files. To run the test scripts execute the following command(s):
+The cilk-roll includes a test script which can be run to verify proper installation of the cilk-roll documentation, binaries and module files. To run the test scripts execute the following command(s):
 
 ```shell
-% /root/rolltests/R.t 
+% /root/rolltests/cilk.t 
 ok 1 # skip not server
-ok 2 - R is installed
-ok 3 - Simple R run
-ok 4 - R module installed
-ok 5 - R version module installed
-ok 6 - R version module link created
+ok 2 - cilk is installed
+ok 3 - Simple cilk run
+ok 4 - cilk module installed
+ok 5 - cilk version module installed
+ok 6 - cilk version module link created
 1..6
 ```
 
