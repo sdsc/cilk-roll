@@ -62,21 +62,22 @@ REDHAT.ROOT = $(CURDIR)/../../
 include Rules.mk
 include pull.mk
 
-build: $(SRC_DIRS)
-	mkdir 3rdparty
+build: $(SRC_PKGS)
+	tar xvzf $(CILKUTIL_SOURCE_PKG)
+	mkdir -p -m 755 ./3rdparty
 	( \
-	  cd 3rdparty; \
+	  cd ./3rdparty; \
 	  tar zxvf ../pin*gz; \
 	  mv * pintool; \
-	  cd ../cilkutil; \
+	  cd ../$(CILKUTIL_SOURCE_DIR; \
 	  tar zxvf ../libzca*gz; \
 	  cd zca/src; \
-	  make OUT=linux64; \
+	  $(MAKE) OUT=linux64; \
 	  cd ../../cilkprof; \
 	  module load intel; \
-	  make \
+	  $(MAKE) \
 	)
-        @echo "::: Package $(NAME) build complete :::"
+	@echo "::: Package $(NAME) build complete :::"
 
 install::
 	mkdir -p -m 755 $(ROOT)/$(PKGROOT)
@@ -84,7 +85,7 @@ install::
 	  cp -r cilkutil/$${F} $(ROOT)/$(PKGROOT)/; \
 	done
 	cp cilkprof $(ROOT)/$(PKGROOT)/bin/
-        @echo "::: Package $(NAME) install complete :::"
+	@echo "::: Package $(NAME) install complete :::"
 
 clean::
-	rm -rf $(SRC_DIRS)
+	rm -rf $(CILKUTIL_SOURCE_DIR) 3rdparty
