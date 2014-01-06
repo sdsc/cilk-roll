@@ -25,3 +25,4 @@ LIBZCA_SOURCE_DIR    = 3rdparty
 
 TGZ_PKGS             = $(CILKUTIL_SOURCE_PKG) $(LIBZCA_SOURCE_PKG)
 TAR_GZ_PKGS          = $(PIN_SOURCE_PKG)
+RPM.EXTRAS         = AutoReq:No
