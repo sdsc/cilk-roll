@@ -7,8 +7,8 @@ This roll bundles the cilk parallel programming system.
 For more information about the various packages included in the cilk roll please
 visit their official web pages:
 
-- <a href="https://www.cilkplus.org" target="_blank">Intel CILK Plus</a> is an
-extension to the C and C++ languages to support data and task parallelism.
+- <a href="http://supertech.csail.mit.edu/cilk/" target="_blank">MIT CILK</a> is 
+a linguistic and runtime technology for algorithmic multithreaded programming.
 
 
 ## Requirements
