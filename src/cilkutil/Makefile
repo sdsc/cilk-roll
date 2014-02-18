@@ -69,7 +69,7 @@ build: $(SRC_PKGS)
 	  cd ./3rdparty; \
 	  tar zxvf ../pin*gz; \
 	  mv * pintool; \
-	  cd ../$(CILKUTIL_SOURCE_DIR; \
+	  cd ../$(CILKUTIL_SOURCE_DIR); \
 	  tar zxvf ../libzca*gz; \
 	  cd zca/src; \
 	  $(MAKE) OUT=linux64; \
