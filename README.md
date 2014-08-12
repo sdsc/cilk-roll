@@ -24,7 +24,11 @@ Rocks development machine.
 
 ## Dependencies
 
-None
+Building the cilk roll currently requires the use of Intel compilers due to a
+bug in the cilkutil build; see "cilkprof failing to compile" on
+https://software.intel.com/en-us/taxonomy/term/36927?page=13.  If "gnu" and
+"intel" environment modules are present, the build process will load them
+appropriately.
 
 
 ## Building
@@ -33,7 +37,7 @@ To build the cilk-roll, execute these instructions on a cilkocks development
 machine (e.g., a frontend or development appliance):
 
 ```shell
-% make default 2>&1 | tee build.log
+% make 2>&1 | tee build.log
 % grep "RPM build error" build.log
 ```
 
@@ -71,12 +75,5 @@ the test scripts execute the following command(s):
 
 ```shell
 % /root/rolltests/cilk.t 
-ok 1 # skip not server
-ok 2 - cilk is installed
-ok 3 - Simple cilk run
-ok 4 - cilk module installed
-ok 5 - cilk version module installed
-ok 6 - cilk version module link created
-1..6
 ```
 

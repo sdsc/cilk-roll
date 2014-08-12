@@ -62,10 +62,20 @@ REDHAT.ROOT = $(CURDIR)/../../
 include Rules.mk
 include pull.mk
 
+COMPILERSETUP = \
+  if test -e /etc/profile.d/modules.sh; then \
+    . /etc/profile.d/modules.sh; \
+    module=`module avail 2>&1 | grep -o -m1 "\<intel\>"`; \
+    if test "$${module}" = "intel"; then \
+      module load intel; \
+    fi; \
+  fi
+
 build: $(SRC_PKGS)
 	tar xvzf $(CILKUTIL_SOURCE_PKG)
 	mkdir -p -m 755 ./3rdparty
 	( \
+	  $(COMPILERSETUP); \
 	  cd ./3rdparty; \
 	  tar zxvf ../pin*gz; \
 	  mv * pintool; \
@@ -74,7 +84,6 @@ build: $(SRC_PKGS)
 	  cd zca/src; \
 	  $(MAKE) OUT=linux64; \
 	  cd ../../cilkprof; \
-	  module load intel; \
 	  $(MAKE) \
 	)
 	@echo "::: Package $(NAME) build complete :::"

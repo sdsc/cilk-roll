@@ -63,12 +63,22 @@ RPM.EXTRAS=%define __os_install_post /usr/lib/rpm/brp-compress
 include Rules.mk
 include pull.mk
 
+COMPILERSETUP = \
+  if test -e /etc/profile.d/modules.sh; then \
+    . /etc/profile.d/modules.sh; \
+    module=`module avail 2>&1 | grep -o -m1 "\<gnu\>"`; \
+    if test "$${module}" = "gnu"; then \
+      module load gnu; \
+    fi; \
+  fi
+
 build: $(SRC_DIRS)
 	cp patch-files/cilk.h $(CILK_SOURCE_DIR)/runtime/
 	( \
-		cd $(CILK_SOURCE_DIR); \
-		./configure --prefix=$(PKGROOT); \
-		$(MAKE); \
+	  $(COMPILERSETUP); \
+	  cd $(CILK_SOURCE_DIR); \
+	  ./configure --prefix=$(PKGROOT); \
+	  $(MAKE) \
 	)
 	@echo "::: Package $(NAME) build complete :::"
 	
@@ -76,9 +86,10 @@ install::
 	mkdir -p -m 755 $(ROOT)/$(PKGROOT)
 	mkdir -p -m 755 $(ROOT)/$(PKGROOT)/examples
 	( \
-		cd $(CILK_SOURCE_DIR); \
-		$(MAKE) prefix=$(ROOT)/$(PKGROOT) install; \
-		cp examples/getoptions.* examples/*.cilk $(ROOT)/$(PKGROOT)/examples \
+	  $(COMPILERSETUP); \
+	  cd $(CILK_SOURCE_DIR); \
+	  $(MAKE) prefix=$(ROOT)/$(PKGROOT) install; \
+	  cp examples/getoptions.* examples/*.cilk $(ROOT)/$(PKGROOT)/examples \
 	)
 	@echo "::: Package $(NAME) install complete :::"
 
