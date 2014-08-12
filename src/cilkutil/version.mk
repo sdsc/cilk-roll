@@ -1,7 +1,7 @@
 NAME                 = cilkutil
 VERSION              = 12.2516
-RELEASE              = 0
-PKG_ROOT             = /opt/cilkutil
+RELEASE              = 1
+PKGROOT              = /opt/cilkutil
 
 SRC_SUBDIR           = cilkutil
 

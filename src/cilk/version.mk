@@ -1,7 +1,7 @@
 NAME             = cilk
 VERSION          = 5.4.6
-RELEASE          = 1
-PKG_ROOT         = /opt/cilk
+RELEASE          = 2
+PKGROOT          = /opt/cilk
 
 SRC_SUBDIR       = cilk
 
