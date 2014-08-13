@@ -62,14 +62,26 @@ REDHAT.ROOT = $(CURDIR)/../../
 include Rules.mk
 include pull.mk
 
+ROLLCOMPILER = intel
+COMPILERNAME = intel
+
+CC = gcc
+CXX = g++
+ifeq ("$(COMPILERNAME)", "intel")
+  CC = icc
+  CXX = icpc
+else ifeq ("$(COMPILERNAME)", "pgi")
+  CC = pgcc
+  CXX = pgCC
+endif
+
 COMPILERSETUP = \
   if test -e /etc/profile.d/modules.sh; then \
     . /etc/profile.d/modules.sh; \
-    module=`module avail 2>&1 | grep -o -m1 "\<intel\>"`; \
-    if test "$${module}" = "intel"; then \
-      module load intel; \
-    fi; \
-  fi
+    module load $(ROLLCOMPILER); \
+  fi; \
+  echo === Compiler and version ===; \
+  $(CC) --version \
 
 build: $(SRC_PKGS)
 	tar xvzf $(CILKUTIL_SOURCE_PKG)
@@ -84,7 +96,7 @@ build: $(SRC_PKGS)
 	  cd zca/src; \
 	  $(MAKE) OUT=linux64; \
 	  cd ../../cilkprof; \
-	  $(MAKE) \
+	  $(MAKE) CXX=$(CXX) \
 	)
 	@echo "::: Package $(NAME) build complete :::"
 

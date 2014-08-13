@@ -63,21 +63,30 @@ RPM.EXTRAS=%define __os_install_post /usr/lib/rpm/brp-compress
 include Rules.mk
 include pull.mk
 
+ROLLCOMPILER = gnu
+COMPILERNAME = gnu
+
+CC = gcc
+ifeq ("$(COMPILERNAME)", "intel")
+  CC = icc
+else ifeq ("$(COMPILERNAME)", "pgi")
+  CC = pgcc
+endif
+
 COMPILERSETUP = \
   if test -e /etc/profile.d/modules.sh; then \
     . /etc/profile.d/modules.sh; \
-    module=`module avail 2>&1 | grep -o -m1 "\<gnu\>"`; \
-    if test "$${module}" = "gnu"; then \
-      module load gnu; \
-    fi; \
-  fi
+    module load $(ROLLCOMPILER); \
+  fi; \
+  echo === Compiler and version ===; \
+  $(CC) --version \
 
 build: $(SRC_DIRS)
 	cp patch-files/cilk.h $(CILK_SOURCE_DIR)/runtime/
 	( \
 	  $(COMPILERSETUP); \
 	  cd $(CILK_SOURCE_DIR); \
-	  ./configure --prefix=$(PKGROOT); \
+	  ./configure CC=$(CC) --prefix=$(PKGROOT); \
 	  $(MAKE) \
 	)
 	@echo "::: Package $(NAME) build complete :::"
