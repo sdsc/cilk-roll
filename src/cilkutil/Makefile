@@ -78,7 +78,7 @@ endif
 COMPILERSETUP = \
   if test -e /etc/profile.d/modules.sh; then \
     . /etc/profile.d/modules.sh; \
-    module load $(ROLLCOMPILER); \
+    module load $(ROLLCOMPILER) || true; \
   fi; \
   echo === Compiler and version ===; \
   $(CC) --version \
