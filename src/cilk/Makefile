@@ -82,10 +82,10 @@ COMPILERSETUP = \
   $(CC) --version \
 
 build: $(SRC_DIRS)
-	cp patch-files/cilk.h $(CILK_SOURCE_DIR)/runtime/
+	cp patch-files/cilk.h $(SOURCE_DIR)/runtime/
 	( \
 	  $(COMPILERSETUP); \
-	  cd $(CILK_SOURCE_DIR); \
+	  cd $(SOURCE_DIR); \
 	  ./configure CC=$(CC) --prefix=$(PKGROOT); \
 	  $(MAKE) \
 	)
@@ -96,11 +96,11 @@ install::
 	mkdir -p -m 755 $(ROOT)/$(PKGROOT)/examples
 	( \
 	  $(COMPILERSETUP); \
-	  cd $(CILK_SOURCE_DIR); \
+	  cd $(SOURCE_DIR); \
 	  $(MAKE) prefix=$(ROOT)/$(PKGROOT) install; \
 	  cp examples/getoptions.* examples/*.cilk $(ROOT)/$(PKGROOT)/examples \
 	)
 	@echo "::: Package $(NAME) install complete :::"
 
 clean::
-	rm -rf $(CILK_SOURCE_DIR)
+	rm -rf $(SOURCE_DIR)

@@ -1,28 +1,29 @@
-NAME                 = cilkutil
-VERSION              = 12.2516
-RELEASE              = 1
-PKGROOT              = /opt/cilkutil
+NAME           = cilkutil
+VERSION        = 12.2516
+RELEASE        = 1
+PKGROOT        = /opt/cilkutil
 
-SRC_SUBDIR           = cilkutil
+SRC_SUBDIR     = cilkutil
 
-CILKUTIL_NAME        = $(NAME)-linux
-CILKUTIL_VERSION     = $(VERSION)
-CILKUTIL_PKG_SUFFIX  = tgz
-CILKUTIL_SOURCE_PKG  = $(CILKUTIL_NAME)-$(CILKUTIL_VERSION).$(CILKUTIL_PKG_SUFFIX)
-CILKUTIL_SOURCE_DIR  = cilkutil
+SOURCE_NAME    = cilkutil-linux
+SOURCE_SUFFIX  = tgz
+SOURCE_VERSION = $(VERSION)
+SOURCE_PKG     = $(SOURCE_NAME)-$(SOURCE_VERSION).$(SOURCE_SUFFIX)
+SOURCE_DIR     = cilkutil
 
-PIN_NAME             = pin
-PIN_VERSION          = 2.12-55942-gcc.4.4.7-linux
-PIN_PKG_SUFFIX       = tar.gz
-PIN_SOURCE_PKG       = $(PIN_NAME)-$(PIN_VERSION).$(PIN_PKG_SUFFIX)
-PIN_SOURCE_DIR       = $(PIN_SOURCE_PKG:%.$(PIN_PKG_SUFFIX)=%)
+PIN_NAME       = pin
+PIN_VERSION    = 2.12-55942-gcc.4.4.7-linux
+PIN_SUFFIX     = tar.gz
+PIN_PKG        = $(PIN_NAME)-$(PIN_VERSION).$(PIN_SUFFIX)
+PIN_DIR        = $(PIN_PKG:%.$(PIN_SUFFIX)=%)
 
-LIBZCA_NAME          = libzca-src
-LIBZCA_VERSION       = 181
-LIBZCA_PKG_SUFFIX    = tgz
-LIBZCA_SOURCE_PKG    = $(LIBZCA_NAME)-$(LIBZCA_VERSION).$(LIBZCA_PKG_SUFFIX)
-LIBZCA_SOURCE_DIR    = 3rdparty
+LIBZCA_NAME    = libzca-src
+LIBZCA_VERSION = 181
+LIBZCA_SUFFIX  = tgz
+LIBZCA_PKG     = $(LIBZCA_NAME)-$(LIBZCA_VERSION).$(LIBZCA_SUFFIX)
+LIBZCA_DIR     = 3rdparty
 
-TGZ_PKGS             = $(CILKUTIL_SOURCE_PKG) $(LIBZCA_SOURCE_PKG)
-TAR_GZ_PKGS          = $(PIN_SOURCE_PKG)
-RPM.EXTRAS         = AutoReq:No
+TGZ_PKGS       = $(SOURCE_PKG) $(LIBZCA_PKG)
+TAR_GZ_PKGS    = $(PIN_PKG)
+
+RPM.EXTRAS     = AutoReq:No

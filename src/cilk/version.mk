@@ -1,15 +1,16 @@
-NAME             = cilk
-VERSION          = 5.4.6
-RELEASE          = 2
-PKGROOT          = /opt/cilk
+NAME           = cilk
+VERSION        = 5.4.6
+RELEASE        = 2
+PKGROOT        = /opt/cilk
 
-SRC_SUBDIR       = cilk
+SRC_SUBDIR     = cilk
 
-CILK_NAME        = $(NAME)
-CILK_VERSION     = $(VERSION)
-CILK_PKG_SUFFIX  = tar.gz
-CILK_SOURCE_PKG  = $(CILK_NAME)-$(CILK_VERSION).$(CILK_PKG_SUFFIX)
-CILK_SOURCE_DIR  = $(CILK_SOURCE_PKG:%.$(CILK_PKG_SUFFIX)=%)
+SOURCE_NAME    = cilk
+SOURCE_SUFFIX  = tar.gz
+SOURCE_VERSION = $(VERSION)
+SOURCE_PKG     = $(SOURCE_NAME)-$(SOURCE_VERSION).$(SOURCE_SUFFIX)
+SOURCE_DIR     = $(SOURCE_PKG:%.$(SOURCE_SUFFIX)=%)
 
-TAR_GZ_PKGS     = $(CILK_SOURCE_PKG)
-RPM.EXTRAS         = AutoReq:No
+TAR_GZ_PKGS     = $(SOURCE_PKG)
+
+RPM.EXTRAS      = AutoReq:No

@@ -83,16 +83,18 @@ COMPILERSETUP = \
   echo === Compiler and version ===; \
   $(CC) --version \
 
+# SRC_PKGS instead of usual SRC_DIRS because we don't want the packages
+# auto-unpacked in the top-level directory.
 build: $(SRC_PKGS)
-	tar xvzf $(CILKUTIL_SOURCE_PKG)
-	mkdir -p -m 755 ./3rdparty
+	tar zxvf $(SOURCE_PKG)
+	mkdir -p -m 755 $(LIBZCA_DIR)
 	( \
 	  $(COMPILERSETUP); \
-	  cd ./3rdparty; \
-	  tar zxvf ../pin*gz; \
+	  cd $(LIBZCA_DIR); \
+	  tar zxvf ../$(PIN_PKG); \
 	  mv * pintool; \
-	  cd ../$(CILKUTIL_SOURCE_DIR); \
-	  tar zxvf ../libzca*gz; \
+	  cd ../$(SOURCE_DIR); \
+	  tar zxvf ../$(LIBZCA_PKG); \
 	  cd zca/src; \
 	  $(MAKE) OUT=linux64; \
 	  cd ../../cilkprof; \
@@ -102,11 +104,12 @@ build: $(SRC_PKGS)
 
 install::
 	mkdir -p -m 755 $(ROOT)/$(PKGROOT)
-	for F in bin examples include lib64 cilkprof/linux64; do \
-	  cp -r cilkutil/$${F} $(ROOT)/$(PKGROOT)/; \
-	done
+	( \
+	  cd $(SOURCE_DIR); \
+	  cp -r bin examples include lib64 cilkprof/linux64 $(ROOT)/$(PKGROOT) \
+	)
 	cp cilkprof $(ROOT)/$(PKGROOT)/bin/
 	@echo "::: Package $(NAME) install complete :::"
 
 clean::
-	rm -rf $(CILKUTIL_SOURCE_DIR) 3rdparty
+	rm -rf $(SOURCE_DIR) 3rdparty
