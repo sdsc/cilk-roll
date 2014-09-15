@@ -31,7 +31,6 @@ SKIP: {
     `/bin/rm cilksort`;
   }
 
-  skip 'modules not installed', 3 if ! -f '/etc/profile.d/modules.sh';
   `/bin/ls /opt/modulefiles/compilers/cilk/[0-9]* 2>&1`;
   ok($? == 0, 'cilk module installed');
   `/bin/ls /opt/modulefiles/compilers/cilk/.version.[0-9]* 2>&1`;
