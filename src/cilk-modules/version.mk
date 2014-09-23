@@ -1,5 +1,9 @@
-NAME       = cilk-modules
-VERSION    = 5.4.6
-RELEASE    = 1
+NAME        = cilk-modules
+RELEASE     = 2
+PKGROOT     = /opt/modulefiles/compilers/cilk
 
-RPM.EXTRAS = AutoReq:No
+VERSION_SRC = $(REDHAT.ROOT)/src/cilk/version.mk
+VERSION_INC = version.inc
+include $(VERSION_INC)
+
+RPM.EXTRAS  = AutoReq:No
