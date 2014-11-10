@@ -33,19 +33,17 @@ appropriately.
 
 ## Building
 
-To build the cilk-roll, execute these instructions on a cilkocks development
+To build the cilk-roll, execute this on a rocks development
 machine (e.g., a frontend or development appliance):
 
 ```shell
 % make 2>&1 | tee build.log
-% grep "RPM build error" build.log
 ```
 
-If nothing is returned from the grep command then the roll should have been
-created as... `cilk-roll-*.iso`. If you built the roll on a Rocks frontend then
-proceed to the installation step. If you built the roll on a Rocks development
-appliance you need to copy the roll to your Rocks frontend before continuing
-with installation.
+A successful build will create the file `weka-*.disk1.iso`.  If you built the
+roll on a Rocks frontend, proceed to the installation step. If you built the
+roll on a Rocks development appliance, you need to copy the roll to your Rocks
+frontend before continuing with installation.
 
 
 ## Installation
@@ -70,10 +68,9 @@ files in:
 ## Testing
 
 The cilk-roll includes a test script which can be run to verify proper
-installation of the cilk-roll documentation, binaries and module files. To run
+installation of the roll documentation, binaries and module files. To run
 the test scripts execute the following command(s):
 
 ```shell
 % /root/rolltests/cilk.t 
 ```
-
