@@ -1,6 +1,6 @@
-NAME       = cilk-roll-test
+NAME       = sdsc-cilk-roll-test
 VERSION    = 1
-RELEASE    = 1
+RELEASE    = 2
 PKGROOT    = /root/rolltests
 
 RPM.EXTRAS = AutoReq:No

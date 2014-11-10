@@ -58,27 +58,31 @@
 
 REDHAT.ROOT = $(CURDIR)/../../
 
--include $(ROCKSROOT)/etc/Rules.mk
-include Rules.mk
-include pull.mk
-
 ROLLCOMPILER = intel
 COMPILERNAME = intel
 
-CC = gcc
-CXX = g++
-ifeq ("$(COMPILERNAME)", "intel")
-  CC = icc
-  CXX = icpc
-else ifeq ("$(COMPILERNAME)", "pgi")
-  CC = pgcc
-  CXX = pgCC
-endif
+-include $(ROCKSROOT)/etc/Rules.mk
+include Rules.mk
+include $(SDSCDEVEL)/Pull.mk
+include $(SDSCDEVEL)/Rules.mk
 
-COMPILERSETUP = \
-  module load $(ROLLCOMPILER) || true; \
-  echo === Compiler and version ===; \
-  $(CC) --version \
+LICENSE_FILES = $(SOURCE_DIR)/doc/cilktools.html
+
+$(NAME).spec: DESCRIPTION LICENSE
+
+DESCRIPTION:
+	$(MODULE_LOAD_CC); \
+	( \
+	  $(DESCRIBE_PKG); \
+	  $(DESCRIBE_CC) \
+	) > $@
+
+LICENSE: $(SRC_PKGS)
+	tar zxvf $(SOURCE_PKG)
+	if ! grep -qF "Legal Information" $(LICENSE_FILES); then \
+	  exit 2; \
+	fi
+	echo Intel > $@
 
 # SRC_PKGS instead of usual SRC_DIRS because we don't want the packages
 # auto-unpacked in the top-level directory.
@@ -86,7 +90,7 @@ build: $(SRC_PKGS)
 	tar zxvf $(SOURCE_PKG)
 	mkdir -p -m 755 $(LIBZCA_DIR)
 	( \
-	  $(COMPILERSETUP); \
+	  $(MODULE_LOAD_CC); \
 	  cd $(LIBZCA_DIR); \
 	  tar zxvf ../$(PIN_PKG); \
 	  mv * pintool; \
@@ -105,8 +109,9 @@ install::
 	  cd $(SOURCE_DIR); \
 	  cp -r bin examples include lib64 cilkprof/linux64 $(ROOT)/$(PKGROOT) \
 	)
+	$(INSTALL_LICENSE_FILES)
 	cp cilkprof $(ROOT)/$(PKGROOT)/bin/
 	@echo "::: Package $(NAME) install complete :::"
 
 clean::
-	rm -rf $(SOURCE_DIR) 3rdparty
+	rm -rf $(SOURCE_DIR) 3rdparty DESCRIPTION LICENSE

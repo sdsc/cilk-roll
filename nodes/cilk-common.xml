@@ -12,9 +12,9 @@ Copyright (c) 2000 - 2014 The Regents of the University of California.
 All rights reserved. Rocks(r) v5.1 www.rocksclusters.org
 </copyright>
 
-<package>cilk</package>
-<package>cilkutil</package>
-<package>cilk-modules</package>
-<package>cilk-roll-test</package>
+<package>sdsc-cilk</package>
+<package>sdsc-cilkutil</package>
+<package>sdsc-cilk-modules</package>
+<package>sdsc-cilk-roll-test</package>
 
 </kickstart>

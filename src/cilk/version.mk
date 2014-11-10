@@ -1,6 +1,6 @@
-NAME           = cilk
+NAME           = sdsc-cilk
 VERSION        = 5.4.6
-RELEASE        = 3
+RELEASE        = 4
 PKGROOT        = /opt/cilk
 
 SRC_SUBDIR     = cilk
