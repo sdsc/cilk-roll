@@ -24,11 +24,16 @@ Rocks development machine.
 
 ## Dependencies
 
+The sdsc-roll must be installed on the build machine, since the build process
+depends on make include files provided by that roll.
+
+The roll sources assume that modulefiles provided by SDSC compiler
+rolls are available, but it will build without them as long as the environment
+variables they provide are otherwise defined.
+
 Building the cilk roll currently requires the use of Intel compilers due to a
 bug in the cilkutil build; see "cilkprof failing to compile" on
-https://software.intel.com/en-us/taxonomy/term/36927?page=13.  If "gnu" and
-"intel" environment modules are present, the build process will load them
-appropriately.
+https://software.intel.com/en-us/taxonomy/term/36927?page=13.
 
 
 ## Building
