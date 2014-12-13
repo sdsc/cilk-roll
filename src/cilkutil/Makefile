@@ -66,8 +66,6 @@ include Rules.mk
 include $(SDSCDEVEL)/Pull.mk
 include $(SDSCDEVEL)/Rules.mk
 
-LICENSE_FILES = $(SOURCE_DIR)/doc/cilktools.html
-
 $(NAME).spec: DESCRIPTION LICENSE
 
 DESCRIPTION:
@@ -79,9 +77,7 @@ DESCRIPTION:
 
 LICENSE: $(SRC_PKGS)
 	tar zxvf $(SOURCE_PKG)
-	if ! grep -qF "Legal Information" $(LICENSE_FILES); then \
-	  exit 2; \
-	fi
+	$(CHECK_LICENCE_FILES)
 	echo Intel > $@
 
 # SRC_PKGS instead of usual SRC_DIRS because we don't want the packages
