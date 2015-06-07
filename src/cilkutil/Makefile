@@ -58,9 +58,6 @@
 
 REDHAT.ROOT = $(CURDIR)/../../
 
-ROLLCOMPILER = intel
-COMPILERNAME = intel
-
 -include $(ROCKSROOT)/etc/Rules.mk
 include Rules.mk
 include $(SDSCDEVEL)/Pull.mk
@@ -95,6 +92,9 @@ build: $(SRC_PKGS)
 	  cd zca/src; \
 	  $(MAKE) OUT=linux64; \
 	  cd ../../cilkprof; \
+	  if test "$(COMPILERNAME)" != "intel"; then \
+	    perl -pi -e 's!\s*-shared!!' Makefile; \
+	  fi; \
 	  $(MAKE) CXX=$(CXX) \
 	)
 	@echo "::: Package $(NAME) build complete :::"

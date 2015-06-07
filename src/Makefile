@@ -53,6 +53,8 @@
 # 
 # @Copyright@
 #
+#
+#
 
 -include $(shell ${ROCKSROOT}/bin/arch).mk
 -include $(shell ${ROCKSROOT}/bin/os).mk
@@ -62,5 +64,5 @@ default:
 
 copyright rpm pkg clean::
 	for i in $(SRCDIRS); do \
-	  (cd $$i && $(MAKE) $@) || exit 2; \
+	  (cd $$i && $(MAKE) ROLLCOMPILER="$(ROLLCOMPILER)" $@) || exit 2; \
 	done

@@ -1,6 +1,11 @@
+ifndef ROLLCOMPILER
+  ROLLCOMPILER = gnu
+endif
+COMPILERNAME := $(firstword $(subst /, ,$(ROLLCOMPILER)))
+
 NAME           = sdsc-cilk
 VERSION        = 5.4.6
-RELEASE        = 4
+RELEASE        = 5
 PKGROOT        = /opt/cilk
 
 SRC_SUBDIR     = cilk

@@ -1,6 +1,11 @@
+ifndef ROLLCOMPILER
+  ROLLCOMPILER = gnu
+endif
+COMPILERNAME := $(firstword $(subst /, ,$(ROLLCOMPILER)))
+
 NAME           = sdsc-cilkutil
 VERSION        = 12.2516
-RELEASE        = 3
+RELEASE        = 4
 PKGROOT        = /opt/cilkutil
 
 SRC_SUBDIR     = cilkutil
