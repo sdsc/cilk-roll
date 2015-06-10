@@ -8,7 +8,7 @@
 # 		         version 5.6 (Emerald Boa)
 # 		         version 6.1 (Emerald Boa)
 # 
-# Copyright (c) 2000 - 2013 The Regents of the University of California.
+# Copyright (c) 2000 - 2015 The Regents of the University of California.
 # All rights reserved.	
 # 
 # Redistribution and use in source and binary forms, with or without
@@ -54,15 +54,20 @@
 # IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # 
 # @Copyright@
-#
-# $Log$
-#
+
+ifndef ROLLCOMPILER
+  ROLLCOMPILER = gnu
+endif
 
 -include $(ROLLSROOT)/etc/Rolls.mk
 include Rolls.mk
 
-default: roll
+default:
+	$(MAKE) ROLLCOMPILER="$(ROLLCOMPILER)" roll
+
+clean::
+	rm -f _arch bootstrap.py
 
 distclean:: clean
-	-rm -f _arch build.log
-	-rm -rf RPMS SRPMS
+	rm -fr RPMS SRPMS
+	-rm -f build.log

@@ -31,10 +31,6 @@ The roll sources assume that modulefiles provided by SDSC compiler
 rolls are available, but it will build without them as long as the environment
 variables they provide are otherwise defined.
 
-Building the cilk roll currently requires the use of Intel compilers due to a
-bug in the cilkutil build; see "cilkprof failing to compile" on
-https://software.intel.com/en-us/taxonomy/term/36927?page=13.
-
 
 ## Building
 
@@ -49,6 +45,22 @@ A successful build will create the file `cilk-*.disk1.iso`.  If you built the
 roll on a Rocks frontend, proceed to the installation step. If you built the
 roll on a Rocks development appliance, you need to copy the roll to your Rocks
 frontend before continuing with installation.
+
+This roll source supports building with different compilers.
+The `ROLLCOMPILER` make variable can be used to
+specify the names of compiler modulefile to use for building the
+software, e.g.,
+
+```shell
+make ROLLCOMPILER=intel 2>&1 | tee build.log
+```
+
+The build process recognizes "gnu", "intel" or "pgi" as the value for the
+`ROLLCOMPILER` variable.  The default value is "gnu".
+
+NOTE: this roll presently builds successfully only using the gnu compiler.  A
+bug in the cilkutil build process prevents producing a dynamic library with
+ROLLCOMPILER=gnu; see https://software.intel.com/en-us/forums/topic/338832.
 
 
 ## Installation
