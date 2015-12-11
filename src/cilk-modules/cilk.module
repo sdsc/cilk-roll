@@ -2,4 +2,4 @@
 set packageHome /opt/cilk
 setenv CILKHOME $packageHome
 setenv CILKUTIL /opt/cilkutil
-prepend-path PATH $packageHome/bin /opt/cilkutil/bin
+prepend-path PATH $packageHome/bin:/opt/cilkutil/bin
