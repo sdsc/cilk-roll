@@ -60,7 +60,7 @@ The build process recognizes "gnu", "intel" or "pgi" as the value for the
 
 NOTE: this roll presently builds successfully only using the gnu compiler.  A
 bug in the cilkutil build process prevents producing a dynamic library with
-ROLLCOMPILER=gnu; see https://software.intel.com/en-us/forums/topic/338832.
+ROLLCOMPILER=intel; see https://software.intel.com/en-us/forums/topic/338832.
 
 
 ## Installation
