@@ -79,6 +79,7 @@ LICENSE: $(SRC_DIRS)
 
 build: $(SRC_DIRS)
 	cp patch-files/cilk.h $(SOURCE_DIR)/runtime/
+	patch $(SOURCE_DIR)/cilk2c/basics.h patch-files/basics.h.patch
 	( \
 	  $(MODULE_LOAD_CC); \
 	  cd $(SOURCE_DIR); \

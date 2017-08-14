@@ -5,7 +5,7 @@ COMPILERNAME := $(firstword $(subst /, ,$(ROLLCOMPILER)))
 
 NAME           = sdsc-cilk
 VERSION        = 5.4.6
-RELEASE        = 5
+RELEASE        = 6
 PKGROOT        = /opt/cilk
 
 SRC_SUBDIR     = cilk

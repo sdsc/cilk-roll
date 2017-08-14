@@ -66,10 +66,8 @@ include $(SDSCDEVEL)/Rules.mk
 $(NAME).spec: DESCRIPTION LICENSE
 
 DESCRIPTION:
-	$(MODULE_LOAD_CC); \
 	( \
-	  $(DESCRIBE_PKG); \
-	  $(DESCRIBE_CC) \
+	  $(DESCRIBE_PKG) \
 	) > $@
 
 LICENSE: $(SRC_PKGS)
@@ -83,7 +81,6 @@ build: $(SRC_PKGS)
 	tar zxvf $(SOURCE_PKG)
 	mkdir -p -m 755 $(LIBZCA_DIR)
 	( \
-	  $(MODULE_LOAD_CC); \
 	  cd $(LIBZCA_DIR); \
 	  tar zxvf ../$(PIN_PKG); \
 	  mv * pintool; \

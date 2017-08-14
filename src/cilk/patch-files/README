@@ -1,3 +1,7 @@
+basics.h
+  Current C standard requires inline functions to be defined in the same
+  compillation unit that they're declared.
+
 cilk.h
   Needed to add #define to work around build error.  See
   http://us.generation-nt.com/answer/building-cilk-recent-linux-distribution-help-201502942.html
