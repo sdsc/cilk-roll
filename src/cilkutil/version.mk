@@ -27,3 +27,4 @@ TGZ_PKGS       = $(SOURCE_PKG) $(LIBZCA_PKG)
 TAR_GZ_PKGS    = $(PIN_PKG)
 
 RPM.EXTRAS     = AutoReq:No
+RPM.PREFIX     = $(PKGROOT)
