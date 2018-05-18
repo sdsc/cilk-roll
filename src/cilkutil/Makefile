@@ -88,9 +88,7 @@ build: $(SRC_PKGS)
 	  cd zca/src; \
 	  $(MAKE) OUT=linux64; \
 	  cd ../../cilkprof; \
-	  if test "$(COMPILERNAME)" != "intel"; then \
-	    perl -pi -e 's!\s*-shared!!' Makefile; \
-	  fi; \
+	  perl -pi -e 's!\s*-shared!!' Makefile; \
 	  $(MAKE) CXX=$(CXX) \
 	)
 	@echo "::: Package $(NAME) build complete :::"

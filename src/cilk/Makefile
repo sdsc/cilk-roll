@@ -66,10 +66,8 @@ include $(SDSCDEVEL)/Rules.mk
 $(NAME).spec: DESCRIPTION LICENSE
 
 DESCRIPTION:
-	$(MODULE_LOAD_CC); \
 	( \
-	  $(DESCRIBE_PKG); \
-	  $(DESCRIBE_CC) \
+	  $(DESCRIBE_PKG) \
 	) > $@
 
 LICENSE: $(SRC_DIRS)
@@ -80,7 +78,6 @@ build: $(SRC_DIRS)
 	cp patch-files/cilk.h $(SOURCE_DIR)/runtime/
 	patch $(SOURCE_DIR)/cilk2c/basics.h patch-files/basics.h.patch
 	( \
-	  $(MODULE_LOAD_CC); \
 	  cd $(SOURCE_DIR); \
 	  ./configure CC=$(CC) --prefix=$(PKGROOT); \
 	  $(MAKE) \
@@ -91,7 +88,6 @@ install::
 	mkdir -p -m 755 $(ROOT)/$(PKGROOT)
 	mkdir -p -m 755 $(ROOT)/$(PKGROOT)/examples
 	( \
-	  $(MODULE_LOAD_CC); \
 	  cd $(SOURCE_DIR); \
 	  $(MAKE) prefix=$(ROOT)/$(PKGROOT) install; \
 	  cp examples/getoptions.* examples/*.cilk $(ROOT)/$(PKGROOT)/examples \

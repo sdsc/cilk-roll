@@ -1,6 +1,6 @@
 NAME           = sdsc-cilkutil
 VERSION        = 12.2516
-RELEASE        = 5
+RELEASE        = 6
 PKGROOT        = /opt/cilkutil
 
 SRC_SUBDIR     = cilkutil
