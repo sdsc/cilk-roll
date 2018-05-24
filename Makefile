@@ -54,15 +54,11 @@
 #
 # @Copyright@
 
-ifndef ROLLCOMPILER
-  ROLLCOMPILER = gnu
-endif
-
 -include $(ROLLSROOT)/etc/Rolls.mk
 include Rolls.mk
 
 default:
-	$(MAKE) ROLLCOMPILER="$(ROLLCOMPILER)" roll
+	$(MAKE) roll
 
 clean::
 	rm -f _arch bootstrap.py
